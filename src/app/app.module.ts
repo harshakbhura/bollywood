@@ -31,6 +31,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 import { LevelPage } from '../pages/level/level';
+import { AlphaKeyboardComponent } from '../components/alpha-keyboard/alpha-keyboard';
 
 
 
@@ -50,7 +51,8 @@ import { LevelPage } from '../pages/level/level';
 
     ProgressBarComponent,
 
-    LevelPage
+    LevelPage,
+    AlphaKeyboardComponent
 
     
 

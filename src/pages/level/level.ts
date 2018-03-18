@@ -26,7 +26,7 @@ import { MovieNamePipe } from '../../pipes/movie-name/movie-name';
 
   host: {
 
-    '(document:keydown)': 'handleKeyboardEvents($event)',
+    '(window:keydown)': 'handleKeyboardEvents($event)',
     '(document:mousedown)':'handleMouseEvents($event)',
     '(document:click)':'handleMouseEvents($event)'
   }
