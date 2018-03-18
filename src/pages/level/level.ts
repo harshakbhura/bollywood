@@ -26,8 +26,9 @@ import { MovieNamePipe } from '../../pipes/movie-name/movie-name';
 
   host: {
 
-    '(document:keydown)': 'handleKeyboardEvents($event)'
-
+    '(document:keydown)': 'handleKeyboardEvents($event)',
+    '(document:mousedown)':'handleMouseEvents($event)',
+    '(document:click)':'handleMouseEvents($event)'
   }
 })
 export class LevelPage {
@@ -100,6 +101,7 @@ export class LevelPage {
 
     this.keyboard.show();
 
+    this.keyboard.hideKeyboardAccessoryBar(true);
    
 
   }
@@ -255,7 +257,7 @@ export class LevelPage {
   ionViewDidLoad() {
 
     //console.log('ionViewDidLoad LevelPage');
-
+    this.keyboard.show();
   }
 
  
@@ -428,5 +430,10 @@ export class LevelPage {
 
     }
 
+  }
+
+  handleMouseEvents($event){
+    $event.preventDefault(); 
+    $event.stopPropagation();
   }
 }
