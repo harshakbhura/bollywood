@@ -1,0 +1,58 @@
+<!--
+  Generated template for the LevelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>level</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding [ngClass]="{'bk-sky':movie==null}">
+
+  <!-- <button ion-button class="pd-8 bk-color-gn" *ngFor="let level of levels;index as i" (click)="getMovieName(i)">
+
+    <ion-icon [ngClass]="{'icon-md-sun':getStatus(i),'icon-md-light':getStatus(i),'star-font':true}" name="star"></ion-icon>
+
+  </button> -->
+
+  <div *ngIf="movie; then thenBlock else elseBlock"></div>
+
+  <ng-template #thenBlock>
+
+    <div  text-center>
+
+    <span class="font-medium" *ngIf="counter==0">Guess the movie name.. <br/>Start with some letter</span>
+
+    <br/>
+
+    <button ion-button color="chance" *ngFor="let ch of chances">
+
+      <ion-icon name="close" [ngClass]="{'color-light':ch>=5-chance,'color-dark':ch<5-chance,'font-big':true}">
+
+      </ion-icon>
+
+    </button>
+
+    </div>
+
+  </ng-template>
+
+  <ng-template #elseBlock class="bk-sky">
+
+    <img src="assets/imgs/ActionBoard.gif">
+
+  </ng-template>
+
+  <h1 text-center [innerHTML]="movie"></h1>
+
+  <div [innerHTML]="wikipage" class="hide"></div>     
+
+</ion-content>
+
+ 
