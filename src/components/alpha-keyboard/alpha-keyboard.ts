@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 /**
  * Generated class for the AlphaKeyboardComponent component.
@@ -11,16 +11,16 @@ import { Component } from '@angular/core';
   templateUrl: 'alpha-keyboard.html'
 })
 export class AlphaKeyboardComponent {
-
-  text: string;
+  @Output() alphaPressed = new EventEmitter<string>();
   letters:Array<string>;
   constructor() {
-    console.log('Hello AlphaKeyboardComponent Component');
-    this.text = 'Hello World';
-    this.letters = Array.from(Array(26),(x,i)=>{
-      return String.fromCharCode(i+65);
-    });
-    console.log(this.letters);
+    this.letters = Array.from(['Q','W','E','R','T','Y','U','I','O',
+    'P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M']);
+  }
+ 
+  changeButton($event,i){
+    this.alphaPressed.emit($event.target.innerText);
+   $event.target.parentElement.disabled=true;
   }
 
 }

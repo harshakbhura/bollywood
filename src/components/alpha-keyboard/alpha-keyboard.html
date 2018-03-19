@@ -1,4 +1,7 @@
 <!-- Generated template for the AlphaKeyboardComponent component -->
-<div >
-  <button ion-button *ngFor="let letter of letters">{{letter}}</button>
+<div class="bottom-center">
+  <button [disabled]="disabled || ['A','E','I','O','U'].indexOf(letter) != -1" color="body" ion-button *ngFor="let letter of letters" (click)="changeButton($event)">
+    {{letter}}
+  </button>
 </div>
+ 
