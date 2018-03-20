@@ -138,6 +138,7 @@ export class LevelPage {
         }]
      });
     }
+    this.storage.set('record',this.record);
     alert.present();
   }
 

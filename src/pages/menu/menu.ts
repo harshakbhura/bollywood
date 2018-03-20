@@ -28,7 +28,7 @@ export class MenuPage {
       let status = (i == 0) ? true : false;
       this.record.set(i+1,new Record(status));
     });
-    console.log(this.record);
+    this.storage.set('record',this.record);
     this.recordEntry=Array.from(this.record.entries());
   }
 
