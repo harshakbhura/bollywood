@@ -14,13 +14,7 @@ export class ProgressBarComponent {
 
   @Input('progress') progress;
 
- 
-
   constructor() {
-
-    console.log('Hello ProgressBarComponent Component');
-
     this.progress = Math.round(this.progress);
-
   }
 }

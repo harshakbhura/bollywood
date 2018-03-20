@@ -14,19 +14,13 @@ export class MovieNamePipe implements PipeTransform {
    */
   transform(value: string, ...args) {
     console.log(args);
-
-    let re =  new RegExp("[^aeiou\\-\\:\\.\\,\\/ 0-9]","gi");  // /[^aeiou\- 0-9]/gi;
-
+    let sp = "\\-\\:\\.\\,\\/\\'\\&";
+    let re = new RegExp("[^aeiou"+ sp +" 0-9]","gi");
     let we=/ /gi;
-
     let ad = args.join().replace(/,/g,'');
-
     if(args.length>0){
-
-      re =  new RegExp("[^aeiou"+ad+"\\-\\:\\.\\,\\/ 0-9]","gi");
-
+      re = new RegExp("[^aeiou"+ad+sp+" 0-9]","gi");
     }
-
     return value.replace(re,'_').replace(we,'&emsp;');
   }
 }

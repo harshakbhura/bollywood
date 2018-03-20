@@ -1,5 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 /**
  * Generated class for the AlphaKeyboardComponent component.
  *
@@ -11,6 +10,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: 'alpha-keyboard.html'
 })
 export class AlphaKeyboardComponent {
+  @Input('guessed') guessed;
   @Output() alphaPressed = new EventEmitter<string>();
   letters:Array<string>;
   constructor() {
