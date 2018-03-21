@@ -60,6 +60,7 @@
         "UPDATE_API": "https://api.ionicjs.com",
         "MAX_STORE": "2"
       },
+      "cordova-sqlite-storage": {},
       "ionic-plugin-keyboard": {}
     },
     "platforms": [

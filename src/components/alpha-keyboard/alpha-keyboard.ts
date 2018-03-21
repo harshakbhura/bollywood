@@ -19,8 +19,8 @@ export class AlphaKeyboardComponent {
   }
  
   changeButton($event,i){
-    this.alphaPressed.emit($event.target.innerText);
-   $event.target.parentElement.disabled=true;
+    this.alphaPressed.emit($event.target.innerText.trim());
+    $event.target.parentElement.disabled=true;
   }
 
 }

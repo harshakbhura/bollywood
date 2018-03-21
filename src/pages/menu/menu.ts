@@ -23,6 +23,9 @@ export class MenuPage {
   recordEntry:Array<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage) {
+    this.storage.get('record').then((data)=>{
+      console.log(data);
+    });
     this.record = new Map();
     Array.from(Array(30),(x,i)=>{
       let status = (i == 0) ? true : false;
