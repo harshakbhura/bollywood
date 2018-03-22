@@ -115,6 +115,7 @@ export class LevelPage {
       } else {
         this.moviename=movieText.toUpperCase();
         this.movie = this.moviePipe.transform(this.moviename);
+        this.guessed = ['A','E','I','O','U'];
         this.chance = 5;
         if(this.movie.indexOf('_')==-1){
           this.counter = index;

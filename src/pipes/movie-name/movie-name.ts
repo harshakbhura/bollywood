@@ -14,7 +14,7 @@ export class MovieNamePipe implements PipeTransform {
    */
   transform(value: string, ...args) {
     console.log(args);
-    let sp = "\\-\\:\\.\\,\\/\\'\\&";
+    let sp = "\\-\\:\\.\\,\\/\\'\\&\\–";
     let re = new RegExp("[^aeiou"+ sp +" 0-9]","gi");
     let we=/ /gi;
     let ad = args.join().replace(/,/g,'');
