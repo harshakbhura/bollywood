@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { IonicStorageModule } from '@ionic/storage';
-import { Keyboard } from '@ionic-native/keyboard';
 import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -28,7 +26,6 @@ import { AlphaKeyboardComponent } from '../components/alpha-keyboard/alpha-keybo
     BrowserModule,
     PipesModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -41,7 +38,6 @@ import { AlphaKeyboardComponent } from '../components/alpha-keyboard/alpha-keybo
   providers: [
     StatusBar,
     SplashScreen,
-    Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MovieNameProvider
   ]

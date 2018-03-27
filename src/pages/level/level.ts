@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Record } from '../home/record';
 import { MovieNameProvider } from '../../providers/movie-name/movie-name';
@@ -22,8 +21,8 @@ export class LevelPage {
   level:number;
   complete:boolean;
   starcolor:string;
-  sublevels:Map<number,boolean>;
-  record:Map<number,Record>;
+  sublevels:Array<boolean>;
+  record:Array<Record>;
   wikipage:string;
   moviePipe:MovieNamePipe;
   counter:number;
@@ -35,12 +34,12 @@ export class LevelPage {
   alertData:Map<string,any>;
  
   constructor(public navCtrl: NavController, public viewCtrl:ViewController,
-    public storage:Storage, public navParams: NavParams,public movieService:MovieNameProvider,
+    public navParams: NavParams,public movieService:MovieNameProvider,
     public alertCtrl:AlertController) {
     this.level = navParams.get('index');
     this.record = navParams.get('record');
     this.movie = null;
-    this.sublevels = this.record.get(this.level).sublevels;
+    this.sublevels = this.record[this.level].sublevels;
     this.moviePipe = new MovieNamePipe();
     this.wikipage = '';
     this.guessed = ['A','E','I','O','U'];
@@ -63,12 +62,12 @@ export class LevelPage {
   initAlertData(){
     this.alertData = new Map();
     this.alertData.set('win',{
-      title:'YOU WON !',
+      title:'CORRECT !',
       subTitle:'<img class="bd-rd-30" src="assets/imgs/next.png"/><br/>Let\'s try Next Movie !',
       buttons:[{text:'EXIT'},{text:'NEXT'}]
     });
     this.alertData.set('lose',{
-      title:'YOU LOST !',
+      title:'RETRY !',
       subTitle:'<img class="bd-rd-30" src="assets/imgs/lose-'+Math.floor(Math.random()*2)+'.png"/><br/>Please Try Another Movie !',
       buttons:[{text:'EXIT'},{text:'REPLAY'}]
     });
@@ -91,7 +90,7 @@ export class LevelPage {
  
   getWikipage(){
     let presentYear = new Date().getFullYear()-1;
-    let index = 2*(this.level-1);
+    let index = this.level > 0 ? 2*(this.level-1) : 0;
     this.movieService.getMovieNames(presentYear-index).subscribe(data=> {
       this.wikipage += data;
       this.movieService.getMovieNames(presentYear-index-1).subscribe(data=> {
@@ -126,10 +125,12 @@ export class LevelPage {
   }
   ionViewDidLoad() {
   }
- 
+  ionViewWillLeave(){
+    localStorage.setItem('record',JSON.stringify(this.record));
+  }
   checkFinish(bonus,status){
-    this.record.get(this.level).score+=1;
-    this.record.get(this.level).sublevels.set(this.counter,true);
+    this.record[this.level].score+=1;
+    this.record[this.level].sublevels[this.counter]=true;
     if(this.counter==30 && status){
       this.levelFinish(bonus,status);
     } else{
@@ -145,20 +146,14 @@ export class LevelPage {
       buttons: [{
         text:data.buttons[0].text,
         handler:data=>{
-          this.record.get(this.level+1).status=true;
+          this.record[this.level+1].status=true;
           this.viewCtrl.dismiss();
       }}]
     });
-    this.storage.set('record',this.record);
     alert.present();
   }
  
   gotoNext(bonus,status){
-    /* let title = status?'YOU WON !':'YOU LOST !';
-    let subTitle = status?'<img class="bd-rd-30" src="assets/imgs/win.png"/>Let\'s try Next ':'<img src="assets/imgs/lose-'+Math.floor(Math.random()*2)+'.png"/>Please Try Another ';
-    let button = status? 'Next':'Replay';
-    title = bonus?'LUCKY DAY':title;
-    subTitle = bonus?'<img class="bd-rd-30" src="assets/imgs/bonus.png"/>You got bonus points for':subTitle; */
     let data =  bonus?this.alertData.get('bonus'):(status?this.alertData.get('win'):this.alertData.get('lose'));
     let alert = this.alertCtrl.create({
       title: data.title,
@@ -177,39 +172,32 @@ export class LevelPage {
         }
       }]
     });
-   
-    this.storage.set('record',this.record);
     alert.present();
   }
  
   handleKeyboardEvents(key) {
-    //if(this.counter < 30) {
-        if(this.guessed.indexOf(key) == -1){
-          this.guessed.push(key);
-          this.movie = this.moviePipe.transform(this.moviename,this.guessed);
-          if(this.moviename.indexOf(key)==-1){
-            this.chance-=1;
-            if(this.chance == 4){
-              let data = this.alertData.get('chance');
-              let alert = this.alertCtrl.create({
-                title: data.title,
-                subTitle: data.subTitle,
-                buttons: [data.buttons[0].text]
-              });
-            alert.present();
-          }
+    if(this.guessed.indexOf(key) == -1){
+        this.guessed.push(key);
+        this.movie = this.moviePipe.transform(this.moviename,this.guessed);
+        if(this.moviename.indexOf(key)==-1){
+          this.chance-=1;
+          if(this.chance == 4){
+            let data = this.alertData.get('chance');
+            let alert = this.alertCtrl.create({
+              title: data.title,
+              subTitle: data.subTitle,
+              buttons: [data.buttons[0].text]
+            });
+          alert.present();
         }
       }
-      if(this.chance==0){
-        this.record.get(this.level).sublevels.set(this.counter,false);
-        this.gotoNext(false,false);
-      } else if(this.movie.indexOf('_')==-1){
-        //this.gotoNext(false,true);
-        this.counter += 1;
-        this.checkFinish(false,true);
-        //this.record.get(this.level).score+=1;
-       //this.record.get(this.level).sublevels.set(this.counter,true); //.get(index) = true;
-      }
     }
-// }
+    if(this.chance==0){
+      this.record[this.level].sublevels[this.counter]=false;
+      this.gotoNext(false,false);
+    } else if(this.movie.indexOf('_')==-1){
+      this.counter += 1;
+      this.checkFinish(false,true);
+    }
+  }
 }

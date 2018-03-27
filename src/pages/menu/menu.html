@@ -11,17 +11,17 @@
 </ion-header>
 
 <ion-content padding class="card-background-page" >
-  <ion-card *ngFor="let item of recordEntry; index as i;" (click)="item[1].status?getSublevels(i):''" [ngClass]="{'odd-card':((i+1)%2!=0),'even-card':((i+1)%2==0)}">
+  <ion-card *ngFor="let item of record; index as i;" (click)="item.status?getSublevels(i):''" [ngClass]="{'odd-card':((i+1)%2!=0),'even-card':((i+1)%2==0)}">
     <ion-item>
       <div class="wd-55" item-start>
         <img class="menu-item" src="assets/imgs/logo-{{i%5}}.gif">
       </div>
-      <div class="top-right" item-end>{{item[1].score}}/30</div>
-      <div item-content text-center class="ft-level-lock"> <ion-icon name="lock" color="lock" *ngIf="!item[1].status"></ion-icon>
-        <h2 class="color-dark">Level {{item[0]}}</h2>
+      <div class="top-right" item-end>{{item.score}}/30</div>
+      <div item-content text-center class="ft-level-lock"> <ion-icon name="lock" color="lock" *ngIf="!item.status"></ion-icon>
+        <h2 class="color-dark">Level {{i+1}}</h2>
       </div>
     </ion-item>
-    <progress-bar *ngIf="item[1].status" [progress]="item[1].score/30"></progress-bar>
+    <progress-bar *ngIf="item.status" [progress]="item.score/30"></progress-bar>
   </ion-card>
   
 </ion-content>

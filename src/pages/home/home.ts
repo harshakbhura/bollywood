@@ -15,7 +15,7 @@ export class HomePage {
     this.splashScreen.hide();
     setTimeout(() => {
       this.viewCtrl.dismiss();
-    }, 4000);
+    }, 5000);
   }
 
 }

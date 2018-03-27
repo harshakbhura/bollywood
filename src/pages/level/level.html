@@ -7,7 +7,7 @@
 <ion-header>
  
   <ion-navbar>
-    <ion-title>Level {{level}}</ion-title>
+    <ion-title>Level {{level+1}}</ion-title>
   </ion-navbar>
  
 </ion-header>
@@ -28,7 +28,7 @@
   </ng-template>
  
   <ng-template #elseBlock class="bk-sky">
-    <img src="assets/imgs/ActionBoard.gif">
+    <img src="assets/imgs/transition.gif">
   </ng-template>
  
   <div [innerHTML]="wikipage" class="hide"></div>    
