@@ -35,12 +35,13 @@ export class MenuPage {
         this.record = JSON.parse(record);
       }else{
         this.record = new Array();
+        Array.from(Array(30),(x,i)=>{
+          let status = (i == 0) ? true : false;
+          this.record[i]=new Record(status);
+          
+        })
       }
-      Array.from(Array(30),(x,i)=>{
-        let status = (i == 0) ? true : false;
-        this.record[i]=new Record(status);
-        
-      })
+      
       localStorage.setItem('record',JSON.stringify(this.record));
     
   }
