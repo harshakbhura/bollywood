@@ -1,12 +1,12 @@
 page-menu {
-    .odd-card ion-item,.odd-card progress-bar{
-        background-color: rgba(128, 201, 245, 0.83);
+    .odd-card ion-grid,.odd-card progress-bar{
+        background-color: color($colors,card-odd);
     }
-    .even-card ion-item,.even-card progress-bar{
-        background-color: rgb(245, 167, 0);
+    .even-card ion-grid,.even-card progress-bar{
+        background-color: color($colors,card-even);
     }
     .color-dark{
-       color: #303030;
+       color: color($colors,body);
        font-weight: bold;
     }
     .menu-item{
@@ -19,6 +19,58 @@ page-menu {
         height: 100%;
     }
     .ft-level-lock{
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+    .font-big{
         font-size: 2.2em;
     }
+}
+.toolbar-title{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: color($colors,dark);
+}
+
+.toolbar-background{
+    background-color: color($colors,header);
+}
+
+.content{
+    background-color: color($colors,body);
+}
+
+.back-button{
+    color: color($colors,light);
+}
+
+.bk-home{
+    background-color: color($colors,splash,base);
+}
+
+.card-background-page {
+    .card-title {
+        height: 100%;
+        font-size: 2.0em;
+        width: 100%;
+        font-weight: bold;
+        color: color($colors,blank);
+    }
+    .card-title img{
+        margin-top: 50%;
+        margin-left: 25%;
+    }
+}
+
+.full-screen{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.full-wide{
+    width: 100%;
+}
+
+.pd-rt-5{
+    padding-right: 5%;
 }

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 import { Record } from '../home/record';
 import { MovieNameProvider } from '../../providers/movie-name/movie-name';
 import { MovieNamePipe } from '../../pipes/movie-name/movie-name';
+import { PRESENT_YEAR } from '../../app/app.component';
 
 /**
 * Generated class for the LevelPage page.
@@ -19,9 +20,6 @@ import { MovieNamePipe } from '../../pipes/movie-name/movie-name';
 
 export class LevelPage {
   level:number;
-  complete:boolean;
-  starcolor:string;
-  sublevels:Array<boolean>;
   record:Array<Record>;
   wikipage:string;
   moviePipe:MovieNamePipe;
@@ -39,14 +37,14 @@ export class LevelPage {
     this.level = navParams.get('index');
     this.record = navParams.get('record');
     this.movie = null;
-    this.sublevels = this.record[this.level].sublevels;
+    let sublevels = this.record[this.level].sublevels;
     this.moviePipe = new MovieNamePipe();
     this.wikipage = '';
     this.guessed = ['A','E','I','O','U'];
     this.counter = 0;
-   this.sublevels.forEach((value,key) => {
+    sublevels.forEach((value,key) => {
       if(value){
-        this.counter = key+1;
+        this.counter = key;
       }
     });
     this.initAlertData();
@@ -89,15 +87,10 @@ export class LevelPage {
   }
  
   getWikipage(){
-    let presentYear = new Date().getFullYear()-1;
-    let index = this.level > 0 ? 2*(this.level-1) : 0;
-    this.movieService.getMovieNames(presentYear-index).subscribe(data=> {
-      this.wikipage += data;
-      this.movieService.getMovieNames(presentYear-index-1).subscribe(data=> {
-        this.wikipage += data;
-        this.getMovieName(this.counter);
-      });
-    });
+    this.wikipage = localStorage.getItem('wiki');
+    setTimeout(()=>{
+      this.getMovieName(this.counter);
+    },100);
   }
  
   getMovieName(index){
@@ -106,8 +99,6 @@ export class LevelPage {
     let tags = tables[tableIndex].getElementsByTagName("i");
     let tagIndex = Math.floor(Math.random()*tags.length);
     let movieText = tags[tagIndex].innerText;
-    console.log(index+""+this.counter);
-    console.log(movieText);
     setTimeout(()=> {
       if(movieText == 'citation needed'){
         this.getMovieName(index);
@@ -121,7 +112,7 @@ export class LevelPage {
           this.checkFinish(true,true);
         }
       }
-    }, 3500);
+    }, 500);
   }
   ionViewDidLoad() {
   }
@@ -146,6 +137,9 @@ export class LevelPage {
       buttons: [{
         text:data.buttons[0].text,
         handler:data=>{
+          this.movieService.getMovieNames(PRESENT_YEAR-this.level-2).subscribe(data=> {
+            localStorage.setItem('wiki',data);
+          });
           this.record[this.level+1].status=true;
           this.viewCtrl.dismiss();
       }}]
@@ -165,7 +159,7 @@ export class LevelPage {
       }},{
         text:data.buttons[1].text,
         handler:data=>{
-          this.movie = null;
+          this.movie = ' ';
           if(this.counter<30){
             this.getMovieName(this.counter);
           }

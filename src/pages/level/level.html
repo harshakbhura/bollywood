@@ -18,12 +18,12 @@
     <div  text-center>
     <span class="font-medium" *ngIf="counter==0">Guess the movie name.. <br/>Start with some letter</span>
     <br/>
-    <button ion-button color="chance" *ngFor="let ch of chances">
-      <ion-icon [name]="ch>=5-chance?'close':'sad'" [ngClass]="{'color-light':ch>=5-chance,'color-dark':ch<5-chance,'font-big':true}">
+    <button class="bk-trans pd-4" *ngFor="let ch of chances">
+      <ion-icon [name]="ch>=5-chance?'happy':'close'" [ngClass]="{'color-light':ch>=5-chance,'color-dark':ch<5-chance,'font-big':true}">
       </ion-icon>
     </button>
     </div>
-    <h1 text-center [innerHTML]="movie"></h1>
+    <h1 text-center class="mg-tp-20" [innerHTML]="movie"></h1>
     <alpha-keyboard (alphaPressed)="handleKeyboardEvents($event)" [guessed]="guessed"></alpha-keyboard>
   </ng-template>
  

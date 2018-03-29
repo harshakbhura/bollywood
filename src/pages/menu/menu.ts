@@ -29,21 +29,7 @@ export class MenuPage {
   }
 
   initRecord(){
-    let record = localStorage.getItem('record');
-    
-      if(record!=null){
-        this.record = JSON.parse(record);
-      }else{
-        this.record = new Array();
-        Array.from(Array(30),(x,i)=>{
-          let status = (i == 0) ? true : false;
-          this.record[i]=new Record(status);
-          
-        })
-      }
-      
-      localStorage.setItem('record',JSON.stringify(this.record));
-    
+    this.record = JSON.parse(localStorage.getItem('record'));
   }
 
   getSublevels(index){

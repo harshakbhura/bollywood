@@ -34,28 +34,24 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-
-  sun:        gold,
-
-  header:   #f5a700,
-
-  chance:     #bdbdbd,
-
-  body:       #303030,
-  alert:      rgb(77, 191, 202),
-  lock:       #6f6e6e,
-
+  primary:      #488aff,
+  secondary:    #32db64,
+  danger:       #f53d3d,
+  light:        #f4f4f4,
+  dark:         #111111,
+  blank:        #ffffff,
+  sun:          gold,
+  header:       #f5a700,
+  card-even:    rgb(245, 167, 0),
+  card-odd:     rgba(128, 201, 245, 0.83),
+  chance:       #bdbdbd,
+  body:         #303030,
+  alert:        rgb(77, 191, 202),
+  lock:         #414141,
+  level-content:rgb(83, 154, 182),
   splash: (
-
     base: #fff351,
-
     contrast: #ffffff
-
   )
 );
 
@@ -101,6 +97,3 @@ $colors: (
 
 // Fonts
 // --------------------------------------------------
-
-@import "roboto";
-@import "noto-sans";

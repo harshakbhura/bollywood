@@ -6,13 +6,13 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Bollywood <div float-right>Score {{getScore()}}</div></ion-title>
+    <ion-title>Bollywood <div float-right><ion-icon name="ribbon"></ion-icon>Score {{getScore()}}</div></ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="card-background-page" >
   <ion-card *ngFor="let item of record; index as i;" (click)="item.status?getSublevels(i):''" [ngClass]="{'odd-card':((i+1)%2!=0),'even-card':((i+1)%2==0)}">
-    <ion-item>
+    <!-- <ion-item>
       <div class="wd-55" item-start>
         <img class="menu-item" src="assets/imgs/logo-{{i%5}}.gif">
       </div>
@@ -20,7 +20,20 @@
       <div item-content text-center class="ft-level-lock"> <ion-icon name="lock" color="lock" *ngIf="!item.status"></ion-icon>
         <h2 class="color-dark">Level {{i+1}}</h2>
       </div>
-    </ion-item>
+    </ion-item> -->
+    <ion-grid>
+      <ion-row justify-content-end >
+        <ion-col col-7>
+          <img class="menu-item" src="assets/imgs/logo-{{i%5}}.gif">
+        </ion-col>
+        <ion-col col-3 align-self-center>
+          <div class="ft-level-lock" text-center>Level {{i+1}}</div><br/><div text-center>{{item.score}}/30</div>
+        </ion-col>
+        <ion-col align-self-start col-1>
+          <ion-icon name="lock" class="font-big" color="lock" *ngIf="!item.status"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <progress-bar *ngIf="item.status" [progress]="item.score/30"></progress-bar>
   </ion-card>
   

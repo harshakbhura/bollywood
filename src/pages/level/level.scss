@@ -1,27 +1,36 @@
 page-level {
+    .bk-trans{
+        background-color: transparent;
+    }
+    .wd-20{
+        width: 20%;
+    }
     .pd-8{
         padding: 8%;
+    }
+    .pd-4{
+        padding: 4%; 
+    }
+    .mg-tp-20{
+        margin-top: 20%;
     }
     .star-font{
         font-size: 30px;
     }
-    .bk-color-gn{
-        background-color: #4c7b4e;;
-    }
     .color-light{
-        color: white;
+        color: color($colors,blank);
     }
     .color-dark{
-        color: red;
+        color: color($colors,danger);
     }
     .font-big{
-        font-size:2.2em;
+        font-size:2.5em;
     }
     .font-medium{
        font-size:1.5em;
     }
     .bk-sky{
-        background-color: rgb(83, 154, 182);
+        background-color: color($colors,level-content);
     }
     .img-center{
         text-align: center;
