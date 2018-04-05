@@ -29,7 +29,9 @@ export class MenuPage {
   }
 
   initRecord(){
-    this.record = JSON.parse(localStorage.getItem('record'));
+    setTimeout(()=>{
+      this.record = JSON.parse(localStorage.getItem('record'));
+    },100);
   }
 
   getSublevels(index){

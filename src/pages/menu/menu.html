@@ -6,22 +6,15 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Bollywood <div float-right><ion-icon name="ribbon"></ion-icon>Score {{getScore()}}</div></ion-title>
+    <ion-title><ion-icon name="radio"></ion-icon> Bollywood <div float-right><ion-icon name="ribbon"></ion-icon> {{getScore()}}</div></ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="card-background-page" >
-  <ion-card *ngFor="let item of record; index as i;" (click)="item.status?getSublevels(i):''" [ngClass]="{'odd-card':((i+1)%2!=0),'even-card':((i+1)%2==0)}">
-    <!-- <ion-item>
-      <div class="wd-55" item-start>
-        <img class="menu-item" src="assets/imgs/logo-{{i%5}}.gif">
-      </div>
-      <div class="top-right" item-end>{{item.score}}/30</div>
-      <div item-content text-center class="ft-level-lock"> <ion-icon name="lock" color="lock" *ngIf="!item.status"></ion-icon>
-        <h2 class="color-dark">Level {{i+1}}</h2>
-      </div>
-    </ion-item> -->
-    <ion-grid>
+  <ion-card *ngFor="let item of record; index as i;" (click)="item.status&&item.score<30?getSublevels(i):''" [ngClass]="{'odd-card':((i+1)%2!=0),'even-card':((i+1)%2==0),'md-win':item.score==30}">
+      <img src="assets/imgs/reward.png" *ngIf="item.score==30">
+      <span [ngClass]="item.score==30?'md-win':''" *ngIf="item.score==30"> Level {{i+1}}<br/>Completed</span>
+    <ion-grid [ngClass]="item.score==30?'md-win':''">
       <ion-row justify-content-end >
         <ion-col col-7>
           <img class="menu-item" src="assets/imgs/logo-{{i%5}}.gif">
@@ -34,7 +27,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <progress-bar *ngIf="item.status" [progress]="item.score/30"></progress-bar>
+    <progress-bar *ngIf="item.status" [ngClass]="item.score==30?'md-win':''" [progress]="item.score/30"></progress-bar>
   </ion-card>
   
 </ion-content>

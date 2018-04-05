@@ -1,6 +1,31 @@
 page-level {
+    .wrap-word{
+        width: 280px;
+        white-space: normal;
+        line-height: 150%;
+        padding: 10% 2%;
+        height: 100%;
+    }
     .bk-trans{
         background-color: transparent;
+    }
+    .count-word{
+        color: color($colors,dark);
+        letter-spacing: 5px;
+        font-size:  medium;
+    }
+    .alpha-box{
+        border-style: dotted;        
+        border-color: color($colors,bulb);
+        border-left: none;
+        border-right: none;
+        border-width: thick;
+        font-size: medium;
+        color: color($colors,light);
+    }
+    .fab-button button{
+        color: color($colors,fab-text);
+        letter-spacing: 2px;
     }
     .wd-20{
         width: 20%;
@@ -14,14 +39,17 @@ page-level {
     .mg-tp-20{
         margin-top: 20%;
     }
-    .star-font{
-        font-size: 30px;
+    .pd-15{
+        padding: 15%;
+    }
+    .pd-top-10{
+        padding-top: 10%;
     }
     .color-light{
-        color: color($colors,blank);
+        color: color($colors,sun);
     }
     .color-dark{
-        color: color($colors,danger);
+        color: color($colors,dark);
     }
     .font-big{
         font-size:2.5em;
@@ -40,12 +68,24 @@ page-level {
 
     }
     .content{
-        color: white;
+        color: color($colors,blank);
+        background-image: url(../assets/imgs/back.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     h1{                                                                                
         letter-spacing: 5px;
     }
-    
+    .toolbar-title{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: color($colors,cadbury);
+    }
+    .toolbar-background{
+        background-color: color($colors,header);
+    }
+    .back-button{
+        color: color($colors,cadbury);
+    }
 }
 .alert-md .alert-wrapper{
     background-color: color($colors,alert);

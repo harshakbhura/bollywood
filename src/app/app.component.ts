@@ -23,6 +23,9 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      setTimeout(()=>{
+        this.splashScreen.hide();
+      });
       this.statusBar.styleDefault();
       let records = null;
       let level=0;
@@ -45,7 +48,7 @@ export class MyApp {
 
   }
 
-  getWikipage(level){
+   getWikipage(level){
     let wikipage = '';
     if(localStorage.getItem('wiki')==null){
       this.movieService.getMovieNames(PRESENT_YEAR-level).subscribe(data=> {

@@ -16,14 +16,27 @@
   <div *ngIf="movie; then thenBlock else elseBlock"></div>
   <ng-template #thenBlock>
     <div  text-center>
-    <span class="font-medium" *ngIf="counter==0">Guess the movie name.. <br/>Start with some letter</span>
-    <br/>
     <button class="bk-trans pd-4" *ngFor="let ch of chances">
-      <ion-icon [name]="ch>=5-chance?'happy':'close'" [ngClass]="{'color-light':ch>=5-chance,'color-dark':ch<5-chance,'font-big':true}">
+      <ion-icon name="ios-bulb" [ngClass]="{'color-light':ch>=5-chance,'color-dark':ch<5-chance,'font-big':true}">
       </ion-icon>
     </button>
     </div>
-    <h1 text-center class="mg-tp-20" [innerHTML]="movie"></h1>
+    <div text-center class="count-word" [innerHTML]="'Number of words '+movieArr.length"></div>
+    <div class="pd-top-10" text-center>
+      <span *ngFor="let word of movieArr">
+        <button ion-button color="dark" class="alpha-box" *ngFor="let ch of word.split('')">{{ch=='_'?'':ch}}</button>
+        <br/>
+      </span>
+    </div>
+    <ion-fab left middle #fab>
+      <button ion-fab color="dark"><ion-icon color="sun" name="bulb"></ion-icon></button>
+      <ion-fab-list side="right" class="fab-button">
+        <button *ngIf="!isHintVisible" ion-button color="body" (click)="showHint('director',fab)">Director</button>
+        <button *ngIf="!isHintVisible" ion-button color="body" (click)="showHint('cast',fab)">Cast</button>
+        <button *ngIf="!isHintVisible" ion-button color="body" (click)="showHint('genre',fab)">Genre</button>
+        <button *ngIf="isHintVisible" ion-button color="body" class="wrap-word">{{hintType}} : {{hint}}</button>
+      </ion-fab-list>
+    </ion-fab>
     <alpha-keyboard (alphaPressed)="handleKeyboardEvents($event)" [guessed]="guessed"></alpha-keyboard>
   </ng-template>
  

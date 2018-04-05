@@ -1,4 +1,7 @@
 page-menu {
+    .odd-card,.even-card{
+        margin: 6% 2%;
+    }
     .odd-card ion-grid,.odd-card progress-bar{
         background-color: color($colors,card-odd);
     }
@@ -25,39 +28,63 @@ page-menu {
     .font-big{
         font-size: 2.2em;
     }
-}
-.toolbar-title{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: color($colors,dark);
-}
-
-.toolbar-background{
-    background-color: color($colors,header);
-}
-
-.content{
-    background-color: color($colors,body);
-}
-
-.back-button{
-    color: color($colors,light);
-}
-
-.bk-home{
-    background-color: color($colors,splash,base);
-}
-
-.card-background-page {
-    .card-title {
-        height: 100%;
-        font-size: 2.0em;
-        width: 100%;
-        font-weight: bold;
-        color: color($colors,blank);
+    .toolbar-title{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: color($colors,dark);
     }
-    .card-title img{
-        margin-top: 50%;
-        margin-left: 25%;
+    
+    .toolbar-background{
+        background-color: color($colors,header);
+    }
+    
+    .content{
+        background-image: url('../assets/imgs/back.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    
+    .back-button{
+        color: color($colors,dark);
+    }
+    .card-background-page {
+        .card-title {
+            height: 100%;
+            font-size: 2.0em;
+            width: 100%;
+            font-weight: bold;
+            color: color($colors,blank);
+        }
+        .card-title img{
+            margin-top: 50%;
+            margin-left: 25%;
+        }
+        img{
+            position: relative;
+            text-align: center;
+            opacity: 1;
+            z-index: 1;
+        }
+    }
+    ion-card.md-win{
+        position: relative;
+    }
+    ion-grid.md-win{
+        position: absolute;
+        top: 0%;
+        z-index: 0;
+    }
+    progress-bar.md-win{
+        position: absolute;
+    }
+    span.md-win{
+        z-index: 2;
+        position: absolute;
+        top: 68%;
+        font-size: x-large;
+        color:#d29500;
+        width: 100%;
+        background-color: transparent;
+        text-align: center;
     }
 }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, FabContainer } from 'ionic-angular';
 import { Record } from '../home/record';
 import { MovieNameProvider } from '../../providers/movie-name/movie-name';
 import { MovieNamePipe } from '../../pipes/movie-name/movie-name';
@@ -19,6 +19,11 @@ import { PRESENT_YEAR } from '../../app/app.component';
 })
 
 export class LevelPage {
+  hintType: any;
+  isHintVisible: boolean;
+  hint:string;
+  hints:Object;
+  movieArr:Array<string>;
   level:number;
   record:Array<Record>;
   wikipage:string;
@@ -42,6 +47,8 @@ export class LevelPage {
     this.wikipage = '';
     this.guessed = ['A','E','I','O','U'];
     this.counter = 0;
+    this.isHintVisible = false;
+    this.hint=null;
     sublevels.forEach((value,key) => {
       if(value){
         this.counter = key;
@@ -66,7 +73,7 @@ export class LevelPage {
     });
     this.alertData.set('lose',{
       title:'RETRY !',
-      subTitle:'<img class="bd-rd-30" src="assets/imgs/lose-'+Math.floor(Math.random()*2)+'.png"/><br/>Please Try Another Movie !',
+      subTitle:'<img class="bd-rd-30" src="assets/imgs/lose-'+this.counter%2+'.png"/><br/>Please Try Another Movie !',
       buttons:[{text:'EXIT'},{text:'REPLAY'}]
     });
     this.alertData.set('bonus',{
@@ -95,16 +102,28 @@ export class LevelPage {
  
   getMovieName(index){
     let tables = document.getElementsByClassName("wikitable");
-    let tableIndex = Math.floor(Math.random()*tables.length);
+    let tableIndex = Math.floor(Math.random()*(tables.length-1))+1;
     let tags = tables[tableIndex].getElementsByTagName("i");
-    let tagIndex = Math.floor(Math.random()*tags.length);
+    let tagIndex = Math.floor(Math.random()*(tags.length-1));
     let movieText = tags[tagIndex].innerText;
     setTimeout(()=> {
       if(movieText == 'citation needed'){
         this.getMovieName(index);
       } else {
         this.moviename=movieText.toUpperCase();
-        this.movie = this.moviePipe.transform(this.moviename);
+        let movie = this.moviePipe.transform(this.moviename);
+        this.movieArr = movie.split("&emsp;");
+        if(this.movieArr.length>3){
+          this.getMovieName(index);
+        }else{
+          this.movie = movie;
+        }
+        let sibling = tags[tagIndex].parentNode.nextSibling;
+        this.hints = {
+          director:sibling['innerText'],
+          cast:sibling.nextSibling['innerText'],
+          genre:sibling.nextSibling.nextSibling['innerText']
+        }
         this.guessed = ['A','E','I','O','U'];
         this.chance = 5;
         if(this.movie.indexOf('_')==-1){
@@ -114,6 +133,13 @@ export class LevelPage {
       }
     }, 500);
   }
+
+  showHint(type, fab: FabContainer){
+    this.isHintVisible = true;
+    this.hint=this.hints[type];
+    this.hintType=type;
+  }
+  
   ionViewDidLoad() {
   }
   ionViewWillLeave(){
@@ -160,6 +186,7 @@ export class LevelPage {
         text:data.buttons[1].text,
         handler:data=>{
           this.movie = ' ';
+          this.isHintVisible=false;
           if(this.counter<30){
             this.getMovieName(this.counter);
           }
@@ -173,6 +200,7 @@ export class LevelPage {
     if(this.guessed.indexOf(key) == -1){
         this.guessed.push(key);
         this.movie = this.moviePipe.transform(this.moviename,this.guessed);
+        this.movieArr = this.movie.split("&emsp;");
         if(this.moviename.indexOf(key)==-1){
           this.chance-=1;
           if(this.chance == 4){

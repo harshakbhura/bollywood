@@ -13,7 +13,6 @@ export class MovieNamePipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
-    console.log(args);
     let sp = "\\-\\:\\.\\,\\/\\'\\&\\–";
     let re = new RegExp("[^aeiou"+ sp +" 0-9]","gi");
     let we=/ /gi;
